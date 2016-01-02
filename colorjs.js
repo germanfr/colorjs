@@ -1,3 +1,18 @@
+var colorjs = (function() {
+	var module = {};
+	
+	/**
+	* Returns a random number between A and B.
+	* @param {number} A - Minimum value.
+	* @param {number} B - Maximum value.
+	*/
+	module.random = function(A, B) {
+		return Math.floor(Math.random()*(B-A+1)+A);
+	}
+
+	return module;	
+})();
+
 /************
 *    RGB    *
 ************/
@@ -155,9 +170,9 @@ RGB.prototype.toArray = function () {
 * Generates a random RGB color.
 */
 RGB.prototype.random = function () {
-	this.red = numAleatorio(0,255);
-	this.green = numAleatorio(0,255);
-	this.blue = numAleatorio(0,255);
+	this.red = colorjs.random(0,255);
+	this.green = colorjs.random(0,255);
+	this.blue = colorjs.random(0,255);
 }
 
 
