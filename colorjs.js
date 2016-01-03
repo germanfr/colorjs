@@ -1,17 +1,4 @@
-var colorjs = (function() {
-	var module = {};
-	
-	/**
-	* Returns a random number between A and B.
-	* @param {number} A - Minimum value.
-	* @param {number} B - Maximum value.
-	*/
-	module.random = function(A, B) {
-		return Math.floor(Math.random()*(B-A+1)+A);
-	}
-
-	return module;	
-})();
+;(function() {
 
 /************
 *    RGB    *
@@ -107,7 +94,7 @@ RGB.prototype.toHEX = function () {
 /**
 * Inverts the RGB color.
 */
-RGB.prototype.invert = function () {		//Invierte RGB
+RGB.prototype.invert = function () {
 	this.red = 255 - this.red;
 	this.green = 255 - this.green;
 	this.blue = 255 - this.blue;
@@ -123,7 +110,8 @@ RGB.prototype.toWebSafe = function () {
 			op = op - modulo;
 		return n - op;
 	}
-	this.red = redondear(this.red, 51);	//51 = 255/5, 5 = n of safe colors between 0 and 255
+	//51 = 255/5, 5 = n of safe colors between 0 and 255
+	this.red = redondear(this.red, 51);
 	this.green = redondear(this.green, 51);
 	this.blue = redondear(this.blue, 51);
 }
@@ -170,9 +158,9 @@ RGB.prototype.toArray = function () {
 * Generates a random RGB color.
 */
 RGB.prototype.random = function () {
-	this.red = colorjs.random(0,255);
-	this.green = colorjs.random(0,255);
-	this.blue = colorjs.random(0,255);
+	this.red = random(0,255);
+	this.green = random(0,255);
+	this.blue = random(0,255);
 }
 
 
@@ -354,3 +342,22 @@ HEX.prototype.toString = function () {
 	return "#" + this.hex;
 }
 
+
+	/********************
+	*       OTHER       *
+	********************/
+
+	/**
+	* Returns a random number between A and B.
+	* @param {number} A - Minimum value.
+	* @param {number} B - Maximum value.
+	*/
+	function random(A, B) {
+		return Math.floor(Math.random()*(B-A+1)+A);
+	}
+
+	window.RGB = RGB;
+	window.HEX = HEX;
+	window.HSV = HSV;
+
+})();
