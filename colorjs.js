@@ -1,5 +1,7 @@
 var colorjs = (function(window) {
-
+	/**
+	* @exports colorjs
+	*/
 	var module = {};
 
 	/******************
@@ -9,6 +11,8 @@ var colorjs = (function(window) {
 	/**
 	* Represents an RGB color.
 	* @constructor
+	* @exports RGB
+	* @class
 	* @param {number} r - Red value
 	* @param {number} g - Green value
 	* @param {number} b - Blue value
@@ -173,6 +177,8 @@ var colorjs = (function(window) {
 	/**
 	* Represents an HSV color.
 	* @constructor
+	* @exports HSV
+	* @class
 	* @param {number} h - Hue value
 	* @param {number} s - Saturation value
 	* @param {number} v - Value value
@@ -283,6 +289,8 @@ var colorjs = (function(window) {
 	/**
 	* Represents an HEXADECIMAL color.
 	* @constructor
+	* @exports HEX
+	* @class
 	* @param {string} h - Hexadecimal string value
 	*/
 	function HEX(h) {
