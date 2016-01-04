@@ -1,4 +1,6 @@
-;(function() {
+var colorjs = (function(window) {
+
+	var module = {};
 
 	/******************
 	*       RGB       *
@@ -341,6 +343,9 @@
 		return "#" + this.hex;
 	}
 
+	window.RGB = RGB;
+	window.HEX = HEX;
+	window.HSV = HSV;
 
 	/********************
 	*       OTHER       *
@@ -355,8 +360,65 @@
 		return Math.floor(Math.random()*(B-A+1)+A);
 	}
 
-	window.RGB = RGB;
-	window.HEX = HEX;
-	window.HSV = HSV;
+	function download(filename, text) {
+		var element = document.createElement('a');
+		element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
+		element.setAttribute('download', filename);
+		element.style.display = 'none';
+		document.body.appendChild(element);
+		element.click();
+		document.body.removeChild(element);
+	}
 
-})();
+	function RGBtoGPL(rgb, name) {
+		name = name || rgb.toHEX().toString()
+		return pad('   ',rgb.red,true) + 
+			pad('    ',rgb.green,true) + 
+			pad('    ',rgb.blue,true) + " " + name;
+	}
+
+	function pad(pad, str, padLeft) {
+		if (typeof str === 'undefined') 
+			return pad;
+		if (padLeft) {
+			return (pad + str).slice(-pad.length);
+		} else {
+			return (str + pad).substring(0, pad.length);
+		}
+	}
+
+	/**
+	* Saves an array of colors into a gpl palette file.
+	* @param {array} palette - Array of colors
+	* @param {string} name - Name for the palette.
+	* @param {string} comment - Any comment to add (one line).
+	* @throws {number} 0 - If HTML5 downloading files is not supported
+	* @throws {number} 1 - If the number of colors is greater than 256. Every color will be saved anyway.
+	*/
+	module.savePalette = function(palette, name, comment) {
+		var file = "GIMP Palette\n";
+			file += "Name: " + name + "\n";
+			file += "Columns: 8\n";
+		if(comment !== undefined) {
+			file += "#" + comment + "\n";
+		}
+			file += "\n";
+
+		for(var i=0; i<palette.length; i++) {
+			if(!(palette[i] instanceof RGB)) {
+				palette[i] = palette[i].toRGB();
+			}
+			file += RGBtoGPL(palette[i]) + "\n";
+		}
+
+		try {
+			download(name + ".gpl", file);
+		} catch (e) { throw 0 }
+
+		if(palette.length>256) {
+			throw 1;
+		}
+	}
+
+	return module;
+})(window);
