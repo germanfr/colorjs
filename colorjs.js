@@ -403,7 +403,7 @@ var colorjs = (function(window) {
 	* @throws {number} 0 - If HTML5 downloading files is not supported
 	* @throws {number} 1 - If the number of colors is greater than 256. Every color will be saved anyway.
 	*/
-	module.savePalette = function(palette, name, comment) {
+	module.saveToGPL = function(palette, name, comment) {
 		var file = "GIMP Palette\n";
 			file += "Name: " + name + "\n";
 			file += "Columns: 8\n";
@@ -427,6 +427,15 @@ var colorjs = (function(window) {
 			throw 1;
 		}
 	}
-
+	
+	/**
+	* Deprecated method. Call saveToGPL instead. 
+	* It does the same job. 
+	* This method could be removed at any time.
+	* @deprecated
+	*/
+	module.savePalette = function(palette, name, comment) {
+		module.saveToGPL(palette,name,comment);
+	}
 	return module;
 })(window);
