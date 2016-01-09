@@ -72,10 +72,13 @@ var colorjs = (function(window) {
 	* @return {HSV} HSV color.
 	*/
 	RGB.prototype.toHSV = function () {
-		var R = this.red/255, G = this.green/255, B = this.blue/255, hue;
+		var R = this.red/255,
+			G = this.green/255,
+			B = this.blue/255;
 
 		var max = Math.max(R,G,B);
 		var diff = max - Math.min(R,G,B);
+		var hue;
 
 		if (diff > 0) {
 			if (max === R) {
@@ -362,6 +365,14 @@ var colorjs = (function(window) {
 	}
 
 	/**
+	* Generates a random HEX color.
+	*/
+	HEX.prototype.random = function () {
+		this.hex = random(0,16777215).toString(16);
+		this.hex = pad("000000", this.hex, true);
+	}
+
+	/**
 	* Converts HEXADECIMAL into String css-like.
 	* @return {string} 
 	*/
@@ -400,7 +411,8 @@ var colorjs = (function(window) {
 		name = name || rgb.toHEX().toString()
 		return pad('   ',rgb.red,true) + 
 			pad('    ',rgb.green,true) + 
-			pad('    ',rgb.blue,true) + " " + name;
+			pad('    ',rgb.blue,true) + 
+				" " + name;
 	}
 
 	function pad(pad, str, padLeft) {
@@ -414,16 +426,15 @@ var colorjs = (function(window) {
 	}
 
 	/**
-	* Saves an array of colors into a gpl palette file.
+	* Parses the array of colors to GPL swatch file format text.
 	* @param {array} palette - Array of colors
-	* @param {string} name - Name for the palette.
+	* @param {string} title - Title name for the palette.
 	* @param {string} comment - Any comment to add (one line).
-	* @throws {number} 0 - If HTML5 downloading files is not supported
-	* @throws {number} 1 - If the number of colors is greater than 256. Every color will be saved anyway.
+	* @return {string} Returns the file text.
 	*/
-	module.saveToGPL = function(palette, name, comment) {
+	module.parseGPL = function(palette, title, comment) {
 		var file = "GIMP Palette\n";
-			file += "Name: " + name + "\n";
+			file += "Name: " + title + "\n";
 			file += "Columns: 8\n";
 		if(comment !== undefined) {
 			file += "#" + comment + "\n";
@@ -434,11 +445,31 @@ var colorjs = (function(window) {
 			if(!(palette[i] instanceof RGB)) {
 				palette[i] = palette[i].toRGB();
 			}
+			palette[i].fix();
 			file += RGBtoGPL(palette[i]) + "\n";
 		}
 
+		return file;
+	}
+
+	/**
+	* Saves an array of valid colorjs colors into a gpl palette file.
+	* Given a title the file will be named joining title words with underscores.
+	* @param {array} palette - Array of colors
+	* @param {string} title - Title name for the palette.
+	* @param {string} comment - Any comment to add (one line).
+	* @return {string} Returns the file text.
+	* @throws {number} 0 - If HTML5 downloading files is not supported
+	* @throws {number} 1 - If the number of colors is greater than 256. Every color will be saved anyway.
+	*/
+	module.saveToGPL = function(palette, title, comment) {
 		try {
-			download(name + ".gpl", file);
+			var file = module.parseGPL(palette,title,comment);
+		} catch (e) { throw e }
+
+		title = title.split(" ").join("_");
+		try {	
+			download(title + ".gpl", file);
 		} catch (e) { throw 0 }
 
 		if(palette.length>256) {
