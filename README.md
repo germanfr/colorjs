@@ -1,6 +1,8 @@
 #colorjs
 A simple JavaScript library to manage colors. 
 
+It is currently under a heavy development process, so we don't recomend to use it in production. Some methods may change its name or disappear within updates. However it already has some useful functionalities.
+
 ###Color formats supported
 It currently supports RGB, HEX (hexadecimal) and HSV.
 Future support for RGBA, HSVA, HSL, HSLA and CMYK.
