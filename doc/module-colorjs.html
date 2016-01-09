@@ -61,100 +61,14 @@
 
     
 
-    <h4 class="name" id=".savePalette"><span class="type-signature">(static) </span>savePalette<span class="signature">()</span><span class="type-signature"></span></h4>
+    <h4 class="name" id=".parseGPL"><span class="type-signature">(static) </span>parseGPL<span class="signature">(palette, title, comment)</span><span class="type-signature"> &rarr; {string}</span></h4>
 
     
 
 
 
 <div class="description">
-    Deprecated method. Call saveToGPL instead. 
-It does the same job. 
-This method could be removed at any time.
-</div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-        <dt class="important tag-deprecated">Deprecated:</dt><dd class="yes-def tag-deprecated"><ul class="dummy"><li>Yes</li></ul></dd>
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="colorjs.js.html">colorjs.js</a>, <a href="colorjs.js.html#line437">line 437</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        
-            
-
-    
-
-    <h4 class="name" id=".saveToGPL"><span class="type-signature">(static) </span>saveToGPL<span class="signature">(palette, name, comment)</span><span class="type-signature"></span></h4>
-
-    
-
-
-
-<div class="description">
-    Saves an array of colors into a gpl palette file.
+    Parses the array of colors to GPL swatch file format text.
 </div>
 
 
@@ -213,7 +127,7 @@ This method could be removed at any time.
 
         <tr>
             
-                <td class="name"><code>name</code></td>
+                <td class="name"><code>title</code></td>
             
 
             <td class="type">
@@ -229,7 +143,7 @@ This method could be removed at any time.
 
             
 
-            <td class="description last">Name for the palette.</td>
+            <td class="description last">Title name for the palette.</td>
         </tr>
 
     
@@ -293,7 +207,293 @@ This method could be removed at any time.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="colorjs.js.html">colorjs.js</a>, <a href="colorjs.js.html#line406">line 406</a>
+        <a href="colorjs.js.html">colorjs.js</a>, <a href="colorjs.js.html#line435">line 435</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    Returns the file text.
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">string</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id=".savePalette"><span class="type-signature">(static) </span>savePalette<span class="signature">()</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+<div class="description">
+    Deprecated method. Call saveToGPL instead. 
+It does the same job. 
+This method could be removed at any time.
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+        <dt class="important tag-deprecated">Deprecated:</dt><dd class="yes-def tag-deprecated"><ul class="dummy"><li>Yes</li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="colorjs.js.html">colorjs.js</a>, <a href="colorjs.js.html#line485">line 485</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id=".saveToGPL"><span class="type-signature">(static) </span>saveToGPL<span class="signature">(palette, title, comment)</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+<div class="description">
+    Saves an array of valid colorjs colors into a gpl palette file.
+Given a title the file will be named joining title words with underscores.
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>palette</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">array</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Array of colors</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>title</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Title name for the palette.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>comment</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Any comment to add (one line).</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="colorjs.js.html">colorjs.js</a>, <a href="colorjs.js.html#line464">line 464</a>
     </li></ul></dd>
     
 
@@ -397,7 +597,7 @@ This method could be removed at any time.
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.0</a> on Fri Jan 08 2016 12:37:18 GMT+0100 (CET)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.0</a> on Sat Jan 09 2016 17:34:56 GMT+0100 (CET)
 </footer>
 
 <script> prettyPrint(); </script>

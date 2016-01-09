@@ -458,7 +458,6 @@ var colorjs = (function(window) {
 	* @param {array} palette - Array of colors
 	* @param {string} title - Title name for the palette.
 	* @param {string} comment - Any comment to add (one line).
-	* @return {string} Returns the file text.
 	* @throws {number} 0 - If HTML5 downloading files is not supported
 	* @throws {number} 1 - If the number of colors is greater than 256. Every color will be saved anyway.
 	*/
