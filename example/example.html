@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8"/>
+		<title>Example</title>
+
+		<link rel="stylesheet" type="text/css" href="style.css"/>
+		
+		<script type="text/javascript" src="../colorjs.js"></script>
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+
+		<meta name="description" content="Description here"/>
+		<meta name="keywords" content="tags,here,please" />
+	</head>
+	<body>
+		<input type="button" id="add" value="Add random color"/>
+		<input type="button" id="save" value="Save swatch"/>
+		<div id="cols-container"></div>
+		<textarea id="savedtext"></textarea>
+	</body>
+	<script type="text/javascript">
+	var colsContainer = document.getElementById("cols-container");
+	var colors = [];
+	var cntr = 0;
+	document.getElementById("add").onclick = function () {
+		var input = document.createElement("input");
+		colors[cntr] = new HEX();
+		colors[cntr].random();
+		input.setAttribute("type","text");
+		input.setAttribute("disabled","disabled");
+		input.setAttribute("value",colors[cntr]);
+		colsContainer.appendChild(input);
+		cntr++;
+	}
+
+	var textarea = document.getElementById("savedtext");
+	document.getElementById("save").onclick = function () {
+		try {
+			colorjs.saveToGPL(colors,"example palette","no comment");
+			textarea.value = colorjs.parseGPL(colors,"example palette", "This is a sample comment");
+		} catch (e) {
+			if (e===0) {
+				textarea.value = "Browser does not support this feature";
+			}
+			else if (e === 1) {
+				textarea.value = "Too many colors! They have to be less than 256";
+			}
+		}
+	}
+	alert(random(0,25));
+
+	</script>
+</html>
