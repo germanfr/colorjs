@@ -6,7 +6,7 @@ It currently supports RGB, HEX (hexadecimal) and HSV.
 Future support for RGBA, HSVA, HSL, HSLA and CMYK.
 
 ###How to use
-[Here](http://htmlpreview.github.io/?https://github.com/germanfr/colorjs/blob/master/doc/index.html) is the documentation, where you can find how to use *colorjs* library.
+[Here](http://htmlpreview.github.io/?https://github.com/germanfr/colorjs/blob/master/doc/index.html) is the documentation, where you can find how to use *colorjs* library. There are examples inside the examples folder.
 
 ###License
 ```
