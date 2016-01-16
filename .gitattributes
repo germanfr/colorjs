@@ -1,0 +1,3 @@
+#Auto line endings for all text files
+* text=auto
+example/* linguist-documentation
