@@ -1,3 +1,8 @@
 #Auto line endings for all text files
-* text=auto
+* text=lf
+
+#Treat example folder as documentation folder (for GitHub stats)
 example/* linguist-documentation
+
+#Treat min.js files as binaries. They are compressed js files
+*min.js binary
