@@ -102,19 +102,9 @@ var colorjs = (function(window) {
 	* @return {HEX} HEXADECIMAL color.
 	*/
 	RGB.prototype.toHEX = function () {
-		var R = this.red.toString(16);
-		if(R.length === 1) {
-			R = '0' + R;
-		}
-		var G = this.green.toString(16);
-		if(G.length === 1) {
-			G = '0' + G;
-		}
-		var B = this.blue.toString(16);
-		if(B.length === 1) {
-			B ='0'+ B;
-		}
-		return new HEX(R + G + B);
+		var h = new HEX();
+		h.hex = (this.red << 16) | (this.green << 8) | this.blue;
+		return h;
 	}
 
 	/**
@@ -316,32 +306,24 @@ var colorjs = (function(window) {
 	*/
 	function HEX(h) {
 		if(h!==undefined) {
-			this.hex = h.toUpperCase();
+			this.hex = parseHEX(h);
 		} else {
-			this.hex = "FFFFFF";
+			this.hex = 16777215;
 		}
 	}
 
-	/**
-	* Checks the HEXADECIMAL color and fixes it if needed. 
-	*/
-	HEX.prototype.fix = function () {
-		if(this.hex[0] === "#") {
-			this.hex = this.hex.substring(1,this.hex.length);
+	function parseHEX(hex) {
+		if(hex[0] === '#') {
+			hex = hex.substring(1,hex.length);
 		}
-		if(this.hex.length === 3) {
-			this.hex = this.hex[0] + this.hex[0] + this.hex[1]
-					 + this.hex[1] + this.hex[2] + this.hex[2];
-		} else if(this.hex.length<6) {
-			this.hex = "000000";
-		} else if(this.hex.length>6) {
-			this.hex = this.hex.substr(0,6);
+		if(hex.length === 3) {
+			hex = hex[0] + hex[0] + hex[1] + hex[1] + hex[2] + hex[2];
+		} else if(hex.length < 6) {
+			return 0;
+		} else if (hex.length > 6) {
+			return 16777215;
 		}
-		
-		var rgbProv = this.toRGB();
-		rgbProv.fix();
-		this.set(rgbProv.toHEX());
-		
+		return parseInt(hex, 16);
 	}
 
 	/**
@@ -349,7 +331,15 @@ var colorjs = (function(window) {
 	* @param {HEX} h - New HEX value
 	*/
 	HEX.prototype.set = function(h) {
-		this.hex = h.hex;
+		this.hex = parseHEX(h);
+	}
+
+	/**
+	* Converts HEXADECIMAL into String value.
+	* @return {string} 
+	*/
+	HEX.prototype.getValue = function () {
+		return pad("000000", this.hex.toString(16), true);
 	}
 
 	/**
@@ -358,18 +348,17 @@ var colorjs = (function(window) {
 	*/
 	HEX.prototype.toRGB = function () {
 		return new RGB(
-			parseInt("0x" + this.hex.substring(0,2),16),
-			parseInt("0x" + this.hex.substring(2,4), 16),
-			parseInt("0x" + this.hex.substring(4,6), 16)
-		)
+			(this.hex & 16711680) >> 16,	//Red
+			(this.hex & 65280) >> 8,	//Green
+			(this.hex & 255)		//Blue
+		);
 	}
 
 	/**
 	* Generates a random HEX color.
 	*/
 	HEX.prototype.random = function () {
-		this.hex = random(0,16777215).toString(16);
-		this.hex = pad("000000", this.hex, true);
+		this.hex = random(0,16777215);
 	}
 
 	/**
@@ -377,7 +366,7 @@ var colorjs = (function(window) {
 	* @return {string} 
 	*/
 	HEX.prototype.toString = function () {
-		return "#" + this.hex;
+		return "#" +this.getValue();
 	}
 
 	window.RGB = RGB;
@@ -418,11 +407,13 @@ var colorjs = (function(window) {
 	function pad(pad, str, padLeft) {
 		if (typeof str === 'undefined') 
 			return pad;
-		if (padLeft) {
+		else if(str.length === pad.length)
+			return str;
+		
+		if (padLeft)
 			return (pad + str).slice(-pad.length);
-		} else {
+		else
 			return (str + pad).substring(0, pad.length);
-		}
 	}
 
 	/**
