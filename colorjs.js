@@ -53,18 +53,18 @@ var colorjs = (function(window) {
 	RGB.prototype.fix = function () {
 		if(this.red<0 || isNaN(this.red))
 			this.red = 0;
-		else if (this.red>255)
-			this.red = 255;
+		else
+			this.red = this.red & 255;
 
 		if(this.green<0 || isNaN(this.green))
 			this.green = 0;
-		else if (this.green>255)
-			this.green = 255;
+		else
+			this.green = this.green & 255;
 
 		if(this.blue<0 || isNaN(this.blue))
 			this.blue = 0;
-		else if (this.blue>255)
-			this.blue = 255;
+		else
+			this.blue = this.blue & 255;
 	}
 
 	/**
@@ -102,9 +102,7 @@ var colorjs = (function(window) {
 	* @return {HEX} HEXADECIMAL color.
 	*/
 	RGB.prototype.toHEX = function () {
-		var h = new HEX();
-		h.hex = (this.red << 16) | (this.green << 8) | this.blue;
-		return h;
+		return new HEX((this.red << 16) | (this.green << 8) | this.blue);
 	}
 
 	/**
@@ -172,11 +170,14 @@ var colorjs = (function(window) {
 
 	/**
 	* Generates a random RGB color.
+	* @return {RGB} Random RGB color
 	*/
-	RGB.prototype.random = function () {
-		this.red = random(0,255);
-		this.green = random(0,255);
-		this.blue = random(0,255);
+	RGB.random = function () {
+		return new RGB(
+			random(0,255),
+			random(0,255),
+			random(0,255)
+		);
 	}
 
 
@@ -291,6 +292,17 @@ var colorjs = (function(window) {
 		return [this.hue, this.sat, this.val];
 	}
 
+	/**
+	* Generates a random HSV color.
+	* @return {HSV} Random HSV color
+	*/
+	HSV.random = function () {
+		return new HSV(
+			random(0,360),
+			random(0,100)/100,
+			random(0,100)/100
+		);
+	}
 
 
 	/******************
@@ -306,7 +318,11 @@ var colorjs = (function(window) {
 	*/
 	function HEX(h) {
 		if(h!==undefined) {
-			this.hex = parseHEX(h);
+			if(typeof h === "number") {
+				this.hex = h & 16777215;
+			} else {
+				this.hex = parseHEX(h);
+			}
 		} else {
 			this.hex = 16777215;
 		}
@@ -348,17 +364,18 @@ var colorjs = (function(window) {
 	*/
 	HEX.prototype.toRGB = function () {
 		return new RGB(
-			(this.hex & 16711680) >> 16,	//Red
-			(this.hex & 65280) >> 8,	//Green
+			(this.hex >> 16) & 255,	//Red
+			(this.hex >> 8) & 255,	//Green
 			(this.hex & 255)		//Blue
 		);
 	}
 
 	/**
 	* Generates a random HEX color.
+	* @return {HEX} Random HEX color
 	*/
-	HEX.prototype.random = function () {
-		this.hex = random(0,16777215);
+	HEX.random = function () {
+		return new HEX(random(0,16777215));
 	}
 
 	/**
