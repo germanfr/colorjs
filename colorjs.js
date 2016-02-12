@@ -258,6 +258,28 @@ var colorjs = (function(window) {
 		return new RGB(R,G,B);
 	}
 
+	/**
+	* Converts HSV to HEXADECIMAL color.
+	* @return {HEX} HEX color.
+	*/
+	HSV.prototype.toHEX = function () {
+		var R, G, B;
+		var C = this.val*this.sat;
+		var X = C*(1- Math.abs((this.hue/60)%2-1));
+		var m = this.val-C;
+
+		if(this.hue < 60)       {R=C; G=X; B=0}	//hue<60 including all negative numbers (may not work)
+		else if(this.hue < 120) {R=X; G=C; B=0}
+		else if(this.hue < 180) {R=0; G=C; B=X}
+		else if(this.hue < 240) {R=0; G=X; B=C}
+		else if(this.hue < 300) {R=X; G=0; B=C}
+		else                    {R=C; G=0; B=X} //hue>=300 including 360 higher numbers (may not work)
+
+		R = Math.round( (R+m)*255 );
+		G = Math.round( (G+m)*255 );
+		B = Math.round( (B+m)*255 );
+		return new HEX((R << 16) | (G << 8) | B);
+	}
 
 	/**
 	* Sets new values to an HSV color.
@@ -398,6 +420,36 @@ var colorjs = (function(window) {
 			(this.hex >> 8) & 255,	//Green
 			(this.hex & 255)		//Blue
 		);
+	}
+
+	/**
+	* Converts HEX to HSV color.
+	* @return {HSV} HSV color.
+	*/
+	HEX.prototype.toHSV = function () {
+		var R = ((this.hex >> 16) & 255)/255,
+			G = ((this.hex >> 8) & 255)/255,
+			B = (this.hex & 255)/255;
+
+		var max = Math.max(R,G,B);
+		var diff = max - Math.min(R,G,B);
+		var hue;
+
+		if (diff > 0) {
+			if (max === R) {
+				hue = ((G - B) / diff) % 6; 
+				if (hue < 0) {
+					hue = 6 + hue;
+				}
+			} else if (max === G) {
+				hue = (B - R) / diff + 2; 
+			} else {
+				hue = (R - G) / diff + 4; 
+			}
+			return new HSV(hue*60, diff/max, max);
+		} else {
+			return new HSV(360, 0, max);
+		}
 	}
 
 	/**
