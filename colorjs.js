@@ -151,6 +151,14 @@ var colorjs = (function(window) {
 	}
 
 	/**
+	* Converts RGB to RGB color.
+	* @return {RGB} RGB color.
+	*/
+	RGB.prototype.toRGB = function () {
+		return this.clone();
+	}
+
+	/**
 	* Converts RGB into String css-like.
 	* @return {string} 
 	*/
@@ -272,6 +280,14 @@ var colorjs = (function(window) {
 	}
 
 	/**
+	* Converts HSV to HSV color.
+	* @return {HSV} HSV color.
+	*/
+	HSV.prototype.toHSV = function () {
+		return this.clone();
+	}
+
+	/**
 	* Converts HSV to HSL (CSS) color in array. 
 	* (Not tested, work in progress)
 	* @return {array} HSL color.
@@ -382,6 +398,14 @@ var colorjs = (function(window) {
 			(this.hex >> 8) & 255,	//Green
 			(this.hex & 255)		//Blue
 		);
+	}
+
+	/**
+	* Converts HEXADECIMAL to HEXADECIMAL color.
+	* @return {HEX} HEXADECIMAL color.
+	*/
+	HEX.prototype.toHEX = function () {
+		return this.clone();
 	}
 
 	/**
