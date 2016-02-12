@@ -143,13 +143,11 @@ var colorjs = (function(window) {
 	}
 
 	/**
-	* Sets new values to an RGB color.
-	* @param {RGB} rgb - New RGB color.
+	* Copies the rgb into a new one.
+	* @return {RGB} rgb - A copy of the original RGB.
 	*/
-	RGB.prototype.copy = function (rgb) {
-		this.red = rgb.red;
-		this.green = rgb.green;
-		this.blue = rgb.blue;
+	RGB.prototype.clone = function () {
+		return new RGB(this.red, this.green, this.blue);
 	}
 
 	/**
@@ -266,6 +264,14 @@ var colorjs = (function(window) {
 	}
 
 	/**
+	* Copies the HSV into a new one.
+	* @return {HSV} hsv - A copy of the original HSV.
+	*/
+	HSV.prototype.clone = function () {
+		return new HSV(this.hue, this.sat, this.val);
+	}
+
+	/**
 	* Converts HSV to HSL (CSS) color in array. 
 	* (Not tested, work in progress)
 	* @return {array} HSL color.
@@ -348,6 +354,14 @@ var colorjs = (function(window) {
 	*/
 	HEX.prototype.set = function(h) {
 		this.hex = parseHEX(h);
+	}
+
+	/**
+	* Copies the HEX into a new one.
+	* @return {HEX} hex - A copy of the original HEX.
+	*/
+	HEX.prototype.clone = function () {
+		return new HEX(this.hex);
 	}
 
 	/**
@@ -484,14 +498,5 @@ var colorjs = (function(window) {
 		}
 	}
 	
-	/**
-	* Deprecated method. Call saveToGPL instead. 
-	* It does the same job. 
-	* This method could be removed at any time.
-	* @deprecated
-	*/
-	module.savePalette = function(palette, name, comment) {
-		module.saveToGPL(palette,name,comment);
-	}
 	return module;
 })(window);
