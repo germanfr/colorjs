@@ -36,7 +36,7 @@ var colorjs = (function(window) {
 	* @param {number} b - Blue value
 	*/
 	function RGB(r,g,b) {
-		if(b===undefined || g===undefined || r===undefined) {
+		if(b === undefined) {
 			this.red = 255;
 			this.green = 255;
 			this.blue = 255;
@@ -82,14 +82,14 @@ var colorjs = (function(window) {
 
 		if (diff > 0) {
 			if (max === R) {
-				hue = ((G - B) / diff) % 6; 
+				hue = ((G - B) / diff) % 6;
 				if (hue < 0) {
 					hue = 6 + hue;
 				}
 			} else if (max === G) {
-				hue = (B - R) / diff + 2; 
+				hue = (B - R) / diff + 2;
 			} else {
-				hue = (R - G) / diff + 4; 
+				hue = (R - G) / diff + 4;
 			}
 			return new HSV(hue*60, diff/max, max);
 		} else {
@@ -107,15 +107,18 @@ var colorjs = (function(window) {
 
 	/**
 	* Inverts the RGB color.
+	* @return {RGB} this object modified.
 	*/
 	RGB.prototype.invert = function () {
 		this.red = 255 - this.red;
 		this.green = 255 - this.green;
 		this.blue = 255 - this.blue;
+		return this;
 	}
 
 	/**
 	* Converts the RGB color to a web-safe one.
+	* @return {RGB} this object modified.
 	*/
 	RGB.prototype.toWebSafe = function () {
 		var redondear = function(n, modulo) {
@@ -128,6 +131,7 @@ var colorjs = (function(window) {
 		this.red = redondear(this.red, 51);
 		this.green = redondear(this.green, 51);
 		this.blue = redondear(this.blue, 51);
+		return this;
 	}
 
 	/**
@@ -135,11 +139,13 @@ var colorjs = (function(window) {
 	* @param {number} r - Red value
 	* @param {number} g - Green value
 	* @param {number} b - Blue value
+	* @return {RGB} this object modified.
 	*/
 	RGB.prototype.set = function (r,g,b) {
 		this.red = r;
 		this.green = g;
 		this.blue = b;
+		return this;
 	}
 
 	/**
@@ -160,7 +166,7 @@ var colorjs = (function(window) {
 
 	/**
 	* Converts RGB into String css-like.
-	* @return {string} 
+	* @return {string}
 	*/
 	RGB.prototype.toString = function () {
 		return "rgb(" + this.red + "," + this.green + "," + this.blue + ")";
@@ -168,7 +174,7 @@ var colorjs = (function(window) {
 
 	/**
 	* Converts RGB into an array.
-	* @return {array} [red,green,blue] 
+	* @return {array} [red,green,blue]
 	*/
 	RGB.prototype.toArray = function () {
 		return [this.red, this.green, this.blue];
@@ -202,7 +208,7 @@ var colorjs = (function(window) {
 	* @param {number} v - Value value
 	*/
 	function HSV(h,s,v) {
-		if(v===undefined || s===undefined || h===undefined) {	//This order improves performance (vsh)
+		if(v === undefined) {	//If last parameter missing n_parameters < 3
 			this.hue = 0;
 			this.sat = 0;
 			this.val = 1;
@@ -215,6 +221,7 @@ var colorjs = (function(window) {
 
 	/**
 	* Checks the HSV color and fixes it if needed
+	* @return {HSV} this object modified.
 	*/
 	HSV.prototype.fix = function () {
 		if(this.hue < 0 || isNaN(this.hue)) {
@@ -232,6 +239,7 @@ var colorjs = (function(window) {
 		} else if(this.val > 1) {
 			this.val = 1;
 		}
+		return this;
 	}
 
 	/**
@@ -286,11 +294,13 @@ var colorjs = (function(window) {
 	* @param {number} h - Hue value
 	* @param {number} s - Saturation value
 	* @param {number} v - Value value
+	* @return {HSV} this object modified.
 	*/
 	HSV.prototype.set = function (h,s,v) {
 		this.hue = h;
 		this.sat = s;
 		this.val = v;
+		return this;
 	}
 
 	/**
@@ -310,7 +320,7 @@ var colorjs = (function(window) {
 	}
 
 	/**
-	* Converts HSV to HSL (CSS) color in array. 
+	* Converts HSV to HSL (CSS) color in array.
 	* (Not tested, work in progress)
 	* @return {array} HSL color.
 	*/
@@ -325,12 +335,12 @@ var colorjs = (function(window) {
 			sat = 1;
 		}
 
-		return[this.hue, this.sat*this.val/sat, val/2];
+		return [this.hue, this.sat*this.val/sat, val/2];
 	}
 
 	/**
 	* Converts HSV into an array.
-	* @return {array} [red,green,blue] 
+	* @return {array} [red,green,blue]
 	*/
 	HSV.prototype.toArray = function () {
 		return [this.hue, this.sat, this.val];
@@ -361,7 +371,7 @@ var colorjs = (function(window) {
 	* @param {string} h - Hexadecimal string value
 	*/
 	function HEX(h) {
-		if(h!==undefined) {
+		if(h !== undefined) {
 			if(typeof h === "number") {
 				this.hex = h & 16777215;
 			} else {
@@ -389,9 +399,11 @@ var colorjs = (function(window) {
 	/**
 	* Sets new values to an HEXADECIMAL color.
 	* @param {HEX} h - New HEX value
+	* @return {HEX} this object modified.
 	*/
 	HEX.prototype.set = function(h) {
 		this.hex = parseHEX(h);
+		return this;
 	}
 
 	/**
@@ -404,7 +416,7 @@ var colorjs = (function(window) {
 
 	/**
 	* Converts HEXADECIMAL into String value.
-	* @return {string} 
+	* @return {string}
 	*/
 	HEX.prototype.getValue = function () {
 		return pad("000000", this.hex.toString(16), true);
@@ -437,14 +449,14 @@ var colorjs = (function(window) {
 
 		if (diff > 0) {
 			if (max === R) {
-				hue = ((G - B) / diff) % 6; 
+				hue = ((G - B) / diff) % 6;
 				if (hue < 0) {
 					hue = 6 + hue;
 				}
 			} else if (max === G) {
-				hue = (B - R) / diff + 2; 
+				hue = (B - R) / diff + 2;
 			} else {
-				hue = (R - G) / diff + 4; 
+				hue = (R - G) / diff + 4;
 			}
 			return new HSV(hue*60, diff/max, max);
 		} else {
@@ -470,7 +482,7 @@ var colorjs = (function(window) {
 
 	/**
 	* Converts HEXADECIMAL into String css-like.
-	* @return {string} 
+	* @return {string}
 	*/
 	HEX.prototype.toString = function () {
 		return "#" +this.getValue();
@@ -505,18 +517,18 @@ var colorjs = (function(window) {
 
 	function RGBtoGPL(rgb, name) {
 		name = name || rgb.toHEX().toString()
-		return pad('   ',rgb.red,true) + 
-			pad('    ',rgb.green,true) + 
-			pad('    ',rgb.blue,true) + 
+		return pad('   ',rgb.red,true) +
+			pad('    ',rgb.green,true) +
+			pad('    ',rgb.blue,true) +
 				" " + name;
 	}
 
 	function pad(pad, str, padLeft) {
-		if (typeof str === 'undefined') 
+		if (typeof str === 'undefined')
 			return pad;
 		else if(str.length === pad.length)
 			return str;
-		
+
 		if (padLeft)
 			return (pad + str).slice(-pad.length);
 		else
@@ -565,7 +577,7 @@ var colorjs = (function(window) {
 		} catch (e) { throw e }
 
 		title = title.split(" ").join("_");
-		try {	
+		try {
 			download(title + ".gpl", file);
 		} catch (e) { throw 0 }
 
@@ -573,6 +585,6 @@ var colorjs = (function(window) {
 			throw 1;
 		}
 	}
-	
+
 	return module;
 })(window);
