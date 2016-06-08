@@ -1,5 +1,5 @@
 #Auto line endings for all text files
-* text=lf
+* text=auto eol=lf
 
 #Treat example folder as documentation folder (for GitHub stats)
 example/* linguist-documentation
