@@ -12,7 +12,7 @@ module.exports = function(grunt) {
 				' */ \n'
 	  },
 	  build: {
-	    src: '<%= pkg.name %>.js',
+	    src: 'src/<%= pkg.name %>.js',
 	    dest: 'dist/<%= pkg.name %>.min.js'
 	  }
 		},
