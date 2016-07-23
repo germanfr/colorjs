@@ -1,20 +1,23 @@
-#colorjs
-A simple JavaScript library to manage colors. 
+# colorjs
+A simple JavaScript library to manage colors.
 
 It is currently under a heavy development process, so we don't recomend to use it in production. Some methods may change its name or disappear within updates. However it already has some useful functionalities.
 
-###Color formats supported
+### Color formats supported
 It currently supports RGB, HEX (hexadecimal) and HSV.
 Future support for RGBA, HSVA, HSL, HSLA and CMYK.
 
-###How to use
+### How to use
 Download the latest release from here: [Latest Release](https://github.com/germanfr/colorjs/releases/latest).
 
 [Here is the documentation](http://htmlpreview.github.io/?https://github.com/germanfr/colorjs/blob/master/doc/index.html), where you can find how to use *colorjs* library. There are some examples inside the examples folder.
 
-**WARNING:** Documentation and minified javascript files only get updated within releases. We recommend to download the [latest version](https://github.com/germanfr/colorjs/releases/latest).
+**WARNING:** Documentation only get updated within releases. We recommend to download the [latest version](https://github.com/germanfr/colorjs/releases/latest).
 
-###License
+### Contributing
+Check [CONTRIBUTING.md](CONTRIBUTING.md) file for detailed instructions.
+
+### License
 ```
     colorjs - A simple JavaScript library to manage colors.
     Copyright (C) 2016 Germán Franco
