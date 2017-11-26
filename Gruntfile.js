@@ -2,24 +2,24 @@ module.exports = function(grunt) {
 
 	// Project configuration.
 	grunt.initConfig({
-	pkg: grunt.file.readJSON('package.json'),
-	uglify: {
-	  options: {
-	    banner: '/* \n' +
-				' * <%= pkg.name %> - <%= pkg.description %> \n' +
-				' * Copyright(c) <%= pkg.author %> <%= grunt.template.today("yyyy") %> (License: <%= pkg.license %>) \n' +
-				' * <%= grunt.template.today("dd-mm-yyyy") %> - Version: <%= pkg.version %> \n' +
-				' */ \n'
-	  },
-	  build: {
-	    src: 'src/<%= pkg.name %>.js',
-	    dest: 'dist/<%= pkg.name %>.min.js'
-	  }
+		pkg: grunt.file.readJSON('package.json'),
+		uglify: {
+			options: {
+				banner: '/* \n' +
+				        ' * <%= pkg.name %> - <%= pkg.description %> \n' +
+				        ' * Copyright(c) <%= pkg.author %> <%= grunt.template.today("yyyy") %> (License: <%= pkg.license %>) \n' +
+				        ' * <%= grunt.template.today("dd-mm-yyyy") %> - Version: <%= pkg.version %> \n' +
+				        ' */'
+			},
+			build: {
+				src: 'src/<%= pkg.name %>.js',
+				dest: 'dist/<%= pkg.name %>.min.js'
+			}
 		},
 		watch: {
-		files: '<%= pkg.name %>.js',
-		tasks: 'reload'
-	}
+			files: 'src/<%= pkg.name %>.js',
+			tasks: 'reload'
+		}
 	});
 
  	// Load the plugin that provides the "uglify" task.

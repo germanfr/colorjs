@@ -1,26 +1,27 @@
 {
-  "name": "colorjs",
-  "version": "0.1.3",
-  "description": "A simple JavaScript library to manage colors",
-  "main": "colorjs.js",
-  "directories": {
-    "doc": "doc",
-    "dist": "dist",
-    "example": "example"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/germanfr/colorjs.git"
-  },
-  "author": "Germán Franco",
-  "license": "LGPL-3.0",
-  "bugs": {
-    "url": "https://github.com/germanfr/colorjs/issues"
-  },
-  "devDependencies": {
-    "grunt-contrib-watch": "^1.0.0"
-  },
-  "dependencies": {
-    "uglify": "^0.1.5"
-  }
+	"name": "colorjs",
+	"version": "0.2.0",
+	"description": "A simple JavaScript library to manage colors",
+	"main": "colorjs.js",
+	"directories": {
+		"doc": "doc",
+		"dist": "dist",
+		"example": "example"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/germanfr/colorjs.git"
+	},
+	"author": "Germán Franco",
+	"license": "LGPL-3.0",
+	"bugs": {
+		"url": "https://github.com/germanfr/colorjs/issues"
+	},
+	"devDependencies": {
+		"grunt": "^1.0.1",
+		"grunt-contrib-uglify": "^3.1.0",
+		"grunt-contrib-watch": "^1.0.0",
+		"uglify-es": "^3.1.10"
+	},
+	"dependencies": {}
 }
