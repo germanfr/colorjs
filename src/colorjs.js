@@ -144,7 +144,7 @@ var colorjs = (function(window) {
 
 		invert: function() {
 			this._hex = ~this._hex & 0xFFFFFF;
-			this.onRGBChange();
+			this.onHEXChange();
 		},
 
 		toWebSafe: function () {
