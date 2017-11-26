@@ -3,51 +3,58 @@
 	<head>
 		<meta charset="utf-8"/>
 		<title>Example</title>
-
-		<link rel="stylesheet" type="text/css" href="style.css"/>
-		
-		<script type="text/javascript" src="../colorjs.js"></script>
-		<meta name="viewport" content="width=device-width, initial-scale=1">
-
-		<meta name="description" content="Description here"/>
-		<meta name="keywords" content="tags,here,please" />
+		<script type="text/javascript" src="../dist/colorjs.min.js"></script>
+		<style>
+			* { margin: 8px; }
+			#colors-container, #file-preview {
+				border: 1px solid #AAA;
+			}
+			#colors-container > input {
+				width: 4em;
+				border: 3px solid #AAA;
+				border-left-width: 16px;
+				padding: 2px 8px;
+			}
+			#file-preview {
+				min-width: 512px;
+				min-height: 16em;
+			}
+		</style>
 	</head>
 	<body>
+		<h1>Colorjs library usage example</h1>
 		<input type="button" id="add" value="Add random color"/>
+		<input type="button" id="preview" value="Preview swatch"/>
 		<input type="button" id="save" value="Save swatch"/>
-		<div id="cols-container"></div>
-		<textarea id="savedtext"></textarea>
+		<div id="colors-container"></div>
+		<textarea id="file-preview"></textarea>
 	</body>
+
 	<script type="text/javascript">
-	var colsContainer = document.getElementById("cols-container");
-	var colors = [];
-	var cntr = 0;
-	document.getElementById("add").onclick = function () {
-		var input = document.createElement("input");
-		colors[cntr] = new HEX();
-		colors[cntr].random();
-		input.setAttribute("type","text");
-		input.setAttribute("disabled","disabled");
-		input.setAttribute("value",colors[cntr]);
-		colsContainer.appendChild(input);
-		cntr++;
-	}
+		var colsContainer = document.getElementById("colors-container");
+		var colors = [];
+		document.getElementById("add").onclick = function () {
+			let color = Color.random();
+			colors.push(color);
 
-	var textarea = document.getElementById("savedtext");
-	document.getElementById("save").onclick = function () {
-		try {
-			colorjs.saveToGPL(colors,"example palette","no comment");
-			textarea.value = colorjs.parseGPL(colors,"example palette", "This is a sample comment");
-		} catch (e) {
-			if (e===0) {
-				textarea.value = "Browser does not support this feature";
-			}
-			else if (e === 1) {
-				textarea.value = "Too many colors! They have to be less than 256";
-			}
-		}
-	}
-	alert(random(0,25));
+			let input = document.createElement("input");
+			input.style.borderColor = color.toStringHEX();
+			input.value = color.toStringHEX();
+			colsContainer.appendChild(input);
+		};
 
+		// Get an array of colors as a string in the GPL file format
+		var textarea = document.getElementById("file-preview");
+		document.getElementById("preview").onclick = function () {
+			console.log(colors);
+			const palette = new GPLPalette(colors, 'Palette example', 'This is a sample comment');
+			textarea.value = palette.toString();
+		};
+
+		// Save an array of colors into a GPL file format
+		document.getElementById("save").onclick = function () {
+			const palette = new GPLPalette(colors, 'Palette example', 'This is a sample comment');
+			palette.save();
+		};
 	</script>
 </html>
