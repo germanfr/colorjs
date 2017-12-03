@@ -261,12 +261,10 @@ var colorjs = (function(window) {
 
 	function parseHEX(hex) {
 		if(hex[0] === '#') {
-			hex = hex.substring(1,hex.length);
+			hex = hex.substring(1); // Remove #
 		}
 		if(hex.length === 3) {
 			hex = hex[0] + hex[0] + hex[1] + hex[1] + hex[2] + hex[2];
-		} else if(hex.length < 6) {
-			return 0x000000;
 		} else if (hex.length > 6) {
 			return 0xFFFFFF;
 		}
