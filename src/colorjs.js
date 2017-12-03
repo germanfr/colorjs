@@ -270,7 +270,7 @@ var colorjs = (function(window) {
 		} else if (hex.length > 6) {
 			return 0xFFFFFF;
 		}
-		return parseInt(hex, 16);
+		return parseInt(hex, 16) || 0x000000;
 	}
 
 	function padl(padstr, str) {
